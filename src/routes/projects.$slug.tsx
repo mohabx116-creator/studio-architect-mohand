@@ -85,7 +85,7 @@ function ProjectPage() {
             <div className="mt-12">
               <p className="eyebrow text-muted-foreground">Materials</p>
               <ul className="mt-4 flex flex-wrap gap-2">
-                {project.materials.map((m) => (
+                {project.materials.map((m: string) => (
                   <li
                     key={m}
                     className="px-4 py-2 border border-border text-xs tracking-wider uppercase"
@@ -100,7 +100,7 @@ function ProjectPage() {
 
         {/* Gallery */}
         <section className="container-luxe space-y-6 md:space-y-10 pb-32">
-          {project.images.map((img, i) => (
+          {project.images.map((img: string, i: number) => (
             <Reveal key={i} delay={i * 0.05}>
               <div className={`overflow-hidden bg-muted ${i % 2 === 0 ? "aspect-[16/9]" : "aspect-[3/2] md:w-2/3 md:ml-auto"}`}>
                 <img src={img} alt={`${project.title} ${i + 1}`} loading="lazy" className="h-full w-full object-cover" />
