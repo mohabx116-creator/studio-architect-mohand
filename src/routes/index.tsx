@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDownToLine, ArrowRight } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, Building2, UserRound } from "lucide-react";
 import { useRef } from "react";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
@@ -11,8 +11,8 @@ import type { PortfolioProject, SectionType } from "@/data/portfolio";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Muhand El-Nady | Architectural Engineer" },
-      { name: "description", content: "Architecture portfolio for Muhand El-Nady: design, BIM, CAD and visualization work." },
+      { title: "Muhand Muhammed Sulaiman El-Nady | Architectural Engineer" },
+      { name: "description", content: "Portfolio of Muhand Muhammed Sulaiman El-Nady, Architectural Engineer (4th Year Student) from Egypt." },
     ],
   }),
   component: Home,
@@ -46,8 +46,14 @@ function Home() {
       <main>
         <section ref={heroRef} className="relative h-[100svh] overflow-hidden">
           <motion.div style={{ y }} className="absolute inset-0">
-            <img src={content.profile.heroImage} alt={`${content.profile.name} architectural hero`} className="h-full w-full object-cover" fetchPriority="high" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/15 to-black/75" />
+            {content.profile.heroImage ? (
+              <img src={content.profile.heroImage} alt={`${content.profile.name} architectural hero`} className="h-full w-full object-cover" fetchPriority="high" />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-[#0d0b09]">
+                <Building2 className="h-28 w-28 text-accent" />
+              </div>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/25 to-black/80" />
           </motion.div>
 
           <motion.div style={{ opacity }} className="container-luxe relative z-10 flex h-full flex-col justify-end pb-24 text-white md:pb-32">
@@ -88,7 +94,14 @@ function AboutPreview() {
       <div className="container-luxe grid gap-12 md:grid-cols-12 md:items-center">
         <Reveal className="md:col-span-5">
           <div className="aspect-[4/5] overflow-hidden bg-muted">
-            <img src={content.profile.image} alt={content.profile.name} className="h-full w-full object-cover" loading="lazy" />
+            {content.profile.image ? (
+              <img src={content.profile.image} alt={content.profile.name} className="h-full w-full object-cover" loading="lazy" />
+            ) : (
+              <div className="flex h-full w-full flex-col items-center justify-center bg-muted">
+                <UserRound className="h-16 w-16 text-accent" />
+                <p className="mt-4 text-sm text-muted-foreground">Real portrait area</p>
+              </div>
+            )}
           </div>
         </Reveal>
         <Reveal className="md:col-span-7" delay={0.1}>
@@ -136,12 +149,18 @@ function ProjectCard({ project, large }: { project: PortfolioProject; large?: bo
   return (
     <Link to="/projects/$slug" params={{ slug: project.slug }} className="group block hover-rise">
       <div className={`relative overflow-hidden bg-muted ${large ? "aspect-[4/5]" : "aspect-[4/3]"}`}>
-        <img src={project.cover} alt={project.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]" />
+        {project.cover ? (
+          <img src={project.cover} alt={project.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]" />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-muted">
+            <Building2 className="h-14 w-14 text-accent" />
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
       </div>
       <div className="mt-6 flex items-baseline justify-between gap-4">
         <div>
-          <p className="eyebrow text-muted-foreground">{project.category} / {project.year}</p>
+          <p className="eyebrow text-muted-foreground">{project.category}</p>
           <h3 className="mt-2 font-display text-2xl transition-colors group-hover:text-accent md:text-3xl">{project.title}</h3>
         </div>
         <p className="whitespace-nowrap text-sm text-muted-foreground">{project.location}</p>

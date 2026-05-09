@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, FileDown } from "lucide-react";
+import { ArrowLeft, ArrowRight, Building2, FileDown } from "lucide-react";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { Reveal } from "@/components/site/Reveal";
@@ -42,7 +42,13 @@ function ProjectPage() {
       <Header />
       <main>
         <section className="relative h-[80svh] min-h-[520px] overflow-hidden">
-          <img src={project.cover} alt={project.title} className="h-full w-full object-cover" fetchPriority="high" />
+          {project.cover ? (
+            <img src={project.cover} alt={project.title} className="h-full w-full object-cover" fetchPriority="high" />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-[#0d0b09]">
+              <Building2 className="h-24 w-24 text-accent" />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/70" />
           <div className="container-luxe absolute inset-x-0 bottom-0 pb-16 text-white">
             <Reveal>
@@ -56,9 +62,9 @@ function ProjectPage() {
         <section className="container-luxe grid gap-12 py-24 md:grid-cols-12 md:py-32">
           <Reveal className="md:col-span-4">
             <dl className="space-y-8">
-              <Meta label="Year" value={String(project.year)} />
+              {project.year && <Meta label="Year" value={String(project.year)} />}
               <Meta label="Location" value={project.location} />
-              <Meta label="Area" value={project.area} />
+              {project.area && <Meta label="Area" value={project.area} />}
               <Meta label="Typology" value={project.category} />
             </dl>
           </Reveal>
@@ -90,10 +96,16 @@ function ProjectPage() {
         </section>
 
         <section className="container-luxe space-y-6 pb-32 md:space-y-10">
-          {project.images.map((image, imageIndex) => (
+          {(project.images.length ? project.images : [""]).map((image, imageIndex) => (
             <Reveal key={`${image}-${imageIndex}`} delay={imageIndex * 0.05}>
               <div className={`overflow-hidden bg-muted ${imageIndex % 2 === 0 ? "aspect-[16/9]" : "aspect-[3/2] md:ml-auto md:w-2/3"}`}>
-                <img src={image} alt={`${project.title} ${imageIndex + 1}`} loading="lazy" className="h-full w-full object-cover" />
+                {image ? (
+                  <img src={image} alt={`${project.title} ${imageIndex + 1}`} loading="lazy" className="h-full w-full object-cover" />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center">
+                    <Building2 className="h-14 w-14 text-accent" />
+                  </div>
+                )}
               </div>
             </Reveal>
           ))}

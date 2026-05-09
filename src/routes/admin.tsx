@@ -201,15 +201,13 @@ function ProjectsPanel({ content, updateContent, updateProject }: { content: Por
         ...current.projects,
         {
           slug,
-          title: "New Project",
-          category: "Residential",
-          location: "Egypt",
-          year: new Date().getFullYear(),
-          area: "0 m2",
-          description: "Project description",
-          materials: ["Concrete"],
-          cover: current.profile.heroImage,
-          images: [current.profile.heroImage],
+          title: "Design of Modern Outdoor Space",
+          category: "Outdoor Space",
+          location: "10th of Ramadan City, Egypt",
+          description: "Modern outdoor space combining comfort and nature.",
+          materials: ["Revit", "Photoshop", "Enscape Render", "Has QR code for project"],
+          cover: "",
+          images: [],
           featured: false,
           files: [],
         },
@@ -242,8 +240,8 @@ function ProjectsPanel({ content, updateContent, updateProject }: { content: Por
                 </select>
               </label>
               <Field label="Location" value={project.location} onChange={(value) => updateProject(project.slug, { location: value })} />
-              <Field label="Year" value={String(project.year)} onChange={(value) => updateProject(project.slug, { year: Number(value) || new Date().getFullYear() })} />
-              <Field label="Area" value={project.area} onChange={(value) => updateProject(project.slug, { area: value })} />
+              <Field label="Year" value={project.year ? String(project.year) : ""} onChange={(value) => updateProject(project.slug, { year: Number(value) || undefined })} />
+              <Field label="Area" value={project.area ?? ""} onChange={(value) => updateProject(project.slug, { area: value })} />
               <Field label="Materials comma separated" value={project.materials.join(", ")} onChange={(value) => updateProject(project.slug, { materials: value.split(",").map((item) => item.trim()).filter(Boolean) })} />
               <TextField label="Description" value={project.description} onChange={(value) => updateProject(project.slug, { description: value })} className="md:col-span-2" />
               <label className="flex items-center gap-3 text-sm">

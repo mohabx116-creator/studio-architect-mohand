@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { Building2 } from "lucide-react";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { Reveal } from "@/components/site/Reveal";
@@ -64,14 +65,20 @@ function ProjectsPage() {
                 >
                   <Link to="/projects/$slug" params={{ slug: project.slug }} className="group block hover-rise">
                     <div className={`relative overflow-hidden bg-muted ${index % 5 === 0 ? "aspect-[16/10]" : "aspect-[4/5]"}`}>
-                      <img src={project.cover} alt={project.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]" />
+                      {project.cover ? (
+                        <img src={project.cover} alt={project.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]" />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-muted">
+                          <Building2 className="h-14 w-14 text-accent" />
+                        </div>
+                      )}
                     </div>
                     <div className="mt-5 flex items-baseline justify-between gap-3">
                       <div>
                         <p className="eyebrow text-muted-foreground">{project.category}</p>
                         <h2 className="mt-2 font-display text-2xl transition-colors group-hover:text-accent">{project.title}</h2>
                       </div>
-                      <p className="text-xs text-muted-foreground">{project.year}</p>
+                      {project.year && <p className="text-xs text-muted-foreground">{project.year}</p>}
                     </div>
                     <p className="mt-1 text-sm text-muted-foreground">{project.location}</p>
                   </Link>

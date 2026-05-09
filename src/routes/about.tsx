@@ -3,6 +3,7 @@ import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { Reveal } from "@/components/site/Reveal";
 import { usePortfolioContent } from "@/hooks/usePortfolioContent";
+import { UserRound } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -35,7 +36,14 @@ export default function AboutPage() {
         <section className="container-luxe mt-24 grid gap-12 md:mt-32 md:grid-cols-12">
           <Reveal className="md:col-span-5">
             <div className="aspect-[4/5] overflow-hidden bg-muted">
-              <img src={content.profile.image} alt={content.profile.name} loading="lazy" className="h-full w-full object-cover" />
+              {content.profile.image ? (
+                <img src={content.profile.image} alt={content.profile.name} loading="lazy" className="h-full w-full object-cover" />
+              ) : (
+                <div className="flex h-full w-full flex-col items-center justify-center">
+                  <UserRound className="h-16 w-16 text-accent" />
+                  <p className="mt-4 text-sm text-muted-foreground">Real portrait area</p>
+                </div>
+              )}
             </div>
             <p className="mt-4 text-sm text-muted-foreground">{content.profile.name} / {content.profile.title}</p>
           </Reveal>

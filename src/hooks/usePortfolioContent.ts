@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { defaultContent, type PortfolioContent, type PortfolioProject, type PortfolioSection } from "@/data/portfolio";
 
-const STORAGE_KEY = "muhand-portfolio-content";
+const STORAGE_KEY = "muhand-portfolio-content-real-cv-v2";
 const AUTH_KEY = "muhand-portfolio-admin";
 
 function normalizeContent(content: PortfolioContent): PortfolioContent {
