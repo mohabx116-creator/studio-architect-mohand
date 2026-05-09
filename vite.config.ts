@@ -15,5 +15,8 @@ export default defineConfig({
   },
   vite: {
     plugins: [nitro()],
+    nitro: {
+      preset: "vercel",
+    },
   },
 });
